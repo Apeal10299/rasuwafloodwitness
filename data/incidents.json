@@ -3,7 +3,7 @@
 
     "incidents": [
 {
-    "id": "1",
+    "id": "2",
     "title": "Nepal-China border area observation",
     "district": "Rasuwa",
     "location": "Rasuwagadhi border area",
@@ -12,7 +12,7 @@
     "type": "Flood",
     "status": "Verified",
     "date": "2026-09-01",
-    "time": "10:00 AM",
+    "time": "10:29 AM",
     "source": "Video footage from border area",
     "description": "Demo entry for the landslide marker category.",
     "footage": "video/NC.mp4",
@@ -20,7 +20,7 @@
 },
 {
 
-    "id": "2",
+    "id": "1",
     "title": "Landslide in Langtang National Park",
     "district": "Rasuwa",
     "location": "Rasuwagadhi border area",
