@@ -15,6 +15,11 @@
         content="Nepal Flood Witness Map - Mapping eyewitness footage and disaster observations."
     >
 
+    <meta
+        name="referrer"
+        content="strict-origin-when-cross-origin"
+    >
+
     <title>Nepal Flood Witness Map</title>
 
 
@@ -70,7 +75,7 @@
                 Nepal Flood Witness Map
             </h1>
 
-            <p>
+            <p data-i18n="headerTagline">
                 Mapping eyewitness footage & disaster observations
             </p>
 
@@ -79,11 +84,46 @@
     </div>
 
 
-    <div class="header-status">
+    <div class="header-status-wrap">
 
-        <span class="live-dot"></span>
+        <div class="header-status">
 
-        Community Documentation
+            <span class="live-dot"></span>
+
+            <span data-i18n="headerStatus">
+                Community Documentation
+            </span>
+
+        </div>
+
+
+        <div class="language-switch" aria-label="Language switcher">
+
+            <button
+                class="lang-btn active"
+                type="button"
+                data-lang="en"
+            >
+                EN
+            </button>
+
+            <button
+                class="lang-btn"
+                type="button"
+                data-lang="zh"
+            >
+                中文
+            </button>
+
+            <button
+                class="lang-btn"
+                type="button"
+                data-lang="np"
+            >
+                ने
+            </button>
+
+        </div>
 
     </div>
 
@@ -99,30 +139,26 @@
 
     <div class="hero-content">
 
-        <div class="eyebrow">
-
+        <div class="eyebrow" data-i18n="heroEyebrow">
             🇳🇵 NEPAL DISASTER DOCUMENTATION
-
         </div>
 
 
         <h2>
 
-            See where the water came from.
+            <span data-i18n="heroTitleLine1">See where the water came from.</span>
 
-            <span>
+            <span data-i18n="heroTitleLine2">
                 Document what people witnessed.
             </span>
 
         </h2>
 
 
-        <p>
-
+        <p data-i18n="heroText">
             A map-based archive of flood, landslide,
             infrastructure and eyewitness observations
             from affected areas of Nepal.
-
         </p>
 
 
@@ -132,20 +168,18 @@
             <button
                 class="primary-btn"
                 onclick="focusTrishuli()"
+                data-i18n="heroButtonPrimary"
             >
-
                 📍 Explore Trishuli
-
             </button>
 
 
             <button
                 class="secondary-btn"
                 onclick="scrollToMap()"
+                data-i18n="heroButtonSecondary"
             >
-
                 🗺️ Open Map
-
             </button>
 
 
@@ -170,18 +204,16 @@
 
     <div>
 
-        <strong>
+        <strong data-i18n="noticeTitle">
             Important information
         </strong>
 
 
-        <p>
-
+        <p data-i18n="noticeText">
             This project documents reported observations
             and eyewitness footage. It is not an emergency
             service and should not be used alone to determine
             whether an area or road is safe.
-
         </p>
 
     </div>
@@ -205,7 +237,7 @@
 
         <div>
 
-            <small>
+            <small data-i18n="statMappedIncidents">
                 Mapped incidents
             </small>
 
@@ -227,7 +259,7 @@
 
         <div>
 
-            <small>
+            <small data-i18n="statFootageReports">
                 Footage reports
             </small>
 
@@ -249,7 +281,7 @@
 
         <div>
 
-            <small>
+            <small data-i18n="statFloodReports">
                 Flood reports
             </small>
 
@@ -271,7 +303,7 @@
 
         <div>
 
-            <small>
+            <small data-i18n="statLandslides">
                 Landslides
             </small>
 
@@ -306,12 +338,12 @@
 
         <div>
 
-            <span class="section-label">
+            <span class="section-label" data-i18n="sectionInteractiveMap">
                 INTERACTIVE MAP
             </span>
 
 
-            <h2>
+            <h2 data-i18n="mapTitle">
                 Disaster observations
             </h2>
 
@@ -320,9 +352,9 @@
 
         <div class="map-updated">
 
-            Last data refresh:
+            <span data-i18n="lastDataRefreshLabel">Last data refresh:</span>
 
-            <strong id="lastUpdated">
+            <strong id="lastUpdated" data-i18n="lastDataRefreshLoading">
                 Loading...
             </strong>
 
@@ -346,17 +378,13 @@
         <div class="coordinate-picker">
 
 
-            <div class="coordinate-title">
-
+            <div class="coordinate-title" data-i18n="coordPickerTitle">
                 📍 Coordinate Picker
-
             </div>
 
 
-            <div class="coordinate-help">
-
+            <div class="coordinate-help" data-i18n="coordPickerHelp">
                 Drag the large pin to the footage location
-
             </div>
 
 
@@ -366,7 +394,7 @@
 
                 <div class="coordinate-box">
 
-                    <span>
+                    <span data-i18n="latitudeLabel">
                         Latitude
                     </span>
 
@@ -380,7 +408,7 @@
 
                 <div class="coordinate-box">
 
-                    <span>
+                    <span data-i18n="longitudeLabel">
                         Longitude
                     </span>
 
@@ -402,10 +430,9 @@
                     type="button"
                     id="copyCoordinates"
                     class="copy-coordinate-btn"
+                    data-i18n="copyCoordinatesBtn"
                 >
-
                     📋 Copy
-
                 </button>
 
 
@@ -413,10 +440,9 @@
                     type="button"
                     id="resetCoordinates"
                     class="reset-coordinate-btn"
+                    data-i18n="resetCoordinatesBtn"
                 >
-
                     ↺ Reset
-
                 </button>
 
 
@@ -433,7 +459,7 @@
 
         <div class="map-legend">
 
-            <strong>
+            <strong data-i18n="legendTitle">
                 Legend
             </strong>
 
@@ -441,7 +467,7 @@
             <div>
 
                 <span class="legend-dot flood"></span>
-                Flood
+                <span data-i18n="legendFlood">Flood</span>
 
             </div>
 
@@ -449,7 +475,7 @@
             <div>
 
                 <span class="legend-dot landslide"></span>
-                Landslide
+                <span data-i18n="legendLandslide">Landslide</span>
 
             </div>
 
@@ -457,7 +483,7 @@
             <div>
 
                 <span class="legend-dot road"></span>
-                Road
+                <span data-i18n="legendRoad">Road</span>
 
             </div>
 
@@ -465,7 +491,7 @@
             <div>
 
                 <span class="legend-dot bridge"></span>
-                Bridge
+                <span data-i18n="legendBridge">Bridge</span>
 
             </div>
 
@@ -473,7 +499,7 @@
             <div>
 
                 <span class="legend-dot other"></span>
-                Other
+                <span data-i18n="legendOther">Other</span>
 
             </div>
 
@@ -495,12 +521,12 @@
 
     <div>
 
-        <span class="section-label">
+        <span class="section-label" data-i18n="sectionExplore">
             EXPLORE
         </span>
 
 
-        <h2>
+        <h2 data-i18n="findObservationTitle">
             Find an observation
         </h2>
 
@@ -514,37 +540,38 @@
         <input
             type="text"
             id="searchInput"
+            data-i18n-placeholder="searchPlaceholder"
             placeholder="🔎 Search location, district..."
         >
 
 
         <select id="typeFilter">
 
-            <option value="all">
+            <option value="all" data-i18n="filterAllIncidentTypes">
                 All incident types
             </option>
 
-            <option value="Flood">
+            <option value="Flood" data-i18n="filterFlood">
                 🌊 Flood
             </option>
 
-            <option value="Landslide">
+            <option value="Landslide" data-i18n="filterLandslide">
                 🪨 Landslide
             </option>
 
-            <option value="Road">
+            <option value="Road" data-i18n="filterRoad">
                 🚧 Road
             </option>
 
-            <option value="Bridge">
+            <option value="Bridge" data-i18n="filterBridge">
                 🌉 Bridge
             </option>
 
-            <option value="Customs">
+            <option value="Customs" data-i18n="filterCustoms">
                 🛂 Customs
             </option>
 
-            <option value="Other">
+            <option value="Other" data-i18n="filterOther">
                 📍 Other
             </option>
 
@@ -554,19 +581,19 @@
 
         <select id="statusFilter">
 
-            <option value="all">
+            <option value="all" data-i18n="filterAllVerification">
                 All verification
             </option>
 
-            <option value="Verified">
+            <option value="Verified" data-i18n="filterVerified">
                 🟢 Verified
             </option>
 
-            <option value="Reported">
+            <option value="Reported" data-i18n="filterReported">
                 🟡 Reported
             </option>
 
-            <option value="Unverified">
+            <option value="Unverified" data-i18n="filterUnverified">
                 ⚪ Unverified
             </option>
 
@@ -589,11 +616,11 @@
 
         <div class="observation-title-wrap">
 
-            <span class="section-label">
+            <span class="section-label" data-i18n="sectionObservations">
                 OBSERVATIONS
             </span>
 
-            <h2>
+            <h2 data-i18n="recentWitnessTitle">
                 Recent witness reports
             </h2>
 
@@ -622,12 +649,12 @@
         </div>
 
 
-        <h3>
+        <h3 data-i18n="noResultsTitle">
             No observations found
         </h3>
 
 
-        <p>
+        <p data-i18n="noResultsText">
             Try changing your search or filters.
         </p>
 
@@ -649,12 +676,12 @@
 
         <div>
 
-            <span class="section-label">
+            <span class="section-label" data-i18n="sectionTimeline">
                 TIMELINE
             </span>
 
 
-            <h2>
+            <h2 data-i18n="timelineTitle">
                 What happened?
             </h2>
 
@@ -671,28 +698,119 @@
 
 
 <!-- =====================================================
+     COMMUNITY ACTION
+===================================================== -->
+
+<section class="community-panel">
+
+    <div class="community-panel-header">
+
+        <span class="section-label" data-i18n="communityActionLabel">
+            COMMUNITY ACTION
+        </span>
+
+        <h2 data-i18n="communityActionTitle">
+            Help improve public awareness
+        </h2>
+
+    </div>
+
+
+    <div class="community-panel-grid">
+
+        <div class="community-card community-card-primary">
+
+            <div class="community-icon">
+                📝
+            </div>
+
+            <h3 data-i18n="communityReportTitle">
+                Submit a witness report
+            </h3>
+
+            <p data-i18n="communityReportText">
+                Share what you saw, where it happened,
+                and any key details that can help others
+                understand the situation safely.
+            </p>
+
+            <a
+                id="googleFormLink"
+                class="google-form-btn"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="googleFormButton"
+            >
+                Open Google Form
+            </a>
+
+        </div>
+
+
+        <div class="community-card">
+
+            <div class="community-icon">
+                🛡️
+            </div>
+
+            <h3 data-i18n="communitySafeTitle">
+                Safe & secure
+            </h3>
+
+            <p data-i18n="communitySafeText">
+                Only share public information, avoid sensitive
+                personal data, and confirm details before posting.
+            </p>
+
+        </div>
+
+
+        <div class="community-card">
+
+            <div class="community-icon">
+                🌱
+            </div>
+
+            <h3 data-i18n="communityLowImpactTitle">
+                Low-impact experience
+            </h3>
+
+            <p data-i18n="communityLowImpactText">
+                This site is intentionally lightweight,
+                mobile-friendly, and designed to work well
+                even on slower internet connections.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
      SOURCES
 ===================================================== -->
 
 <section class="sources-section">
 
 
-    <span class="section-label">
+    <span class="section-label" data-i18n="sectionAboutProject">
         ABOUT THIS PROJECT
     </span>
 
 
-    <h2>
+    <h2 data-i18n="aboutProjectTitle">
         Evidence, sources & verification
     </h2>
 
 
-    <p>
-
+    <p data-i18n="aboutProjectText">
         This project documents disaster observations
         reported by people who witnessed events in
         affected areas of Nepal.
-
     </p>
 
 
@@ -706,15 +824,13 @@
                 🎥
             </div>
 
-            <h3>
+            <h3 data-i18n="sourceEyewitnessTitle">
                 Eyewitness footage
             </h3>
 
-            <p>
-
+            <p data-i18n="sourceEyewitnessText">
                 Videos and photographs are attributed
                 to their original source whenever possible.
-
             </p>
 
         </div>
@@ -727,15 +843,13 @@
                 🔎
             </div>
 
-            <h3>
+            <h3 data-i18n="sourceVerificationTitle">
                 Verification
             </h3>
 
-            <p>
-
+            <p data-i18n="sourceVerificationText">
                 Reports are labelled according to
                 the level of verification available.
-
             </p>
 
         </div>
@@ -748,15 +862,13 @@
                 📚
             </div>
 
-            <h3>
+            <h3 data-i18n="sourceOfficialTitle">
                 Official information
             </h3>
 
-            <p>
-
+            <p data-i18n="sourceOfficialText">
                 Official disaster information should
                 always take priority for emergency decisions.
-
             </p>
 
         </div>
@@ -786,7 +898,7 @@
         </strong>
 
 
-        <p>
+        <p data-i18n="footerDescription">
             An independent community documentation project.
         </p>
 
@@ -796,7 +908,7 @@
 
     <div class="footer-right">
 
-        <span>
+        <span data-i18n="footerMeta">
             Open Map • Community Focused
         </span>
 
