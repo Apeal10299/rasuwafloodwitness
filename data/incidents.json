@@ -47,8 +47,103 @@
             "longitude": 85.377997,
             "type": "Flood",
             "status": "Verified",
+            "date": "2026-08-01",
+            "time": "7:30 AM",
+            "source": "Video footage from border area",
+            "description": "Multiple footage clips documenting the same area and river flow movement.",
+            "footage": [
+                "video/NC.mp4",
+                "video/NC.mp4"
+            ],
+            "icon": "🛂"
+        },
+        {
+            "id": "2",
+            "title": "Nepal-China border area observation",
+            "district": "Rasuwa",
+            "location": "Rasuwagadhi border area",
+            "latitude": 28.279742,
+            "longitude": 85.377997,
+            "type": "Flood",
+            "status": "Verified",
             "date": "2026-09-01",
             "time": "10:30 AM",
+            "source": "Video footage from border area",
+            "description": "Multiple footage clips documenting the same area and river flow movement.",
+            "footage": [
+                "video/NC.mp4",
+                "video/NC.mp4"
+            ],
+            "icon": "🛂"
+        },
+        {
+            "id": "2",
+            "title": "Nepal-China border area observation",
+            "district": "Rasuwa",
+            "location": "Rasuwagadhi border area",
+            "latitude": 28.279742,
+            "longitude": 85.377997,
+            "type": "Flood",
+            "status": "Verified",
+            "date": "2026-09-01",
+            "time": "10:31 AM",
+            "source": "Video footage from border area",
+            "description": "Multiple footage clips documenting the same area and river flow movement.",
+            "footage": [
+                "video/NC.mp4",
+                "video/NC.mp4"
+            ],
+            "icon": "🛂"
+        },
+        {
+            "id": "2",
+            "title": "Nepal-China border area observation",
+            "district": "Rasuwa",
+            "location": "Rasuwagadhi border area",
+            "latitude": 28.279742,
+            "longitude": 85.377997,
+            "type": "Flood",
+            "status": "Verified",
+            "date": "2026-09-01",
+            "time": "10:32 AM",
+            "source": "Video footage from border area",
+            "description": "Multiple footage clips documenting the same area and river flow movement.",
+            "footage": [
+                "video/NC.mp4",
+                "video/NC.mp4"
+            ],
+            "icon": "🛂"
+        },
+        {
+            "id": "2",
+            "title": "Nepal-China border area observation",
+            "district": "Rasuwa",
+            "location": "Rasuwagadhi border area",
+            "latitude": 28.279742,
+            "longitude": 85.377997,
+            "type": "Flood",
+            "status": "Verified",
+            "date": "2026-09-01",
+            "time": "10:33 AM",
+            "source": "Video footage from border area",
+            "description": "Multiple footage clips documenting the same area and river flow movement.",
+            "footage": [
+                "video/NC.mp4",
+                "video/NC.mp4"
+            ],
+            "icon": "🛂"
+        },
+        {
+            "id": "2",
+            "title": "Nepal-China border area observation",
+            "district": "Rasuwa",
+            "location": "Rasuwagadhi border area",
+            "latitude": 28.279742,
+            "longitude": 85.377997,
+            "type": "Flood",
+            "status": "Verified",
+            "date": "2026-09-01",
+            "time": "10:34 AM",
             "source": "Video footage from border area",
             "description": "Multiple footage clips documenting the same area and river flow movement.",
             "footage": [
@@ -181,102 +276,7 @@
             "type": "Flood",
             "status": "Verified",
             "date": "2026-09-01",
-            "time": "10:30 AM",
-            "source": "Video footage from border area",
-            "description": "Multiple footage clips documenting the same area and river flow movement.",
-            "footage": [
-                "video/NC.mp4",
-                "video/NC.mp4"
-            ],
-            "icon": "🛂"
-        },
-        {
-            "id": "2",
-            "title": "Nepal-China border area observation",
-            "district": "Rasuwa",
-            "location": "Rasuwagadhi border area",
-            "latitude": 28.279742,
-            "longitude": 85.377997,
-            "type": "Flood",
-            "status": "Verified",
-            "date": "2026-09-01",
-            "time": "10:30 AM",
-            "source": "Video footage from border area",
-            "description": "Multiple footage clips documenting the same area and river flow movement.",
-            "footage": [
-                "video/NC.mp4",
-                "video/NC.mp4"
-            ],
-            "icon": "🛂"
-        },
-        {
-            "id": "2",
-            "title": "Nepal-China border area observation",
-            "district": "Rasuwa",
-            "location": "Rasuwagadhi border area",
-            "latitude": 28.279742,
-            "longitude": 85.377997,
-            "type": "Flood",
-            "status": "Verified",
-            "date": "2026-09-01",
-            "time": "10:30 AM",
-            "source": "Video footage from border area",
-            "description": "Multiple footage clips documenting the same area and river flow movement.",
-            "footage": [
-                "video/NC.mp4",
-                "video/NC.mp4"
-            ],
-            "icon": "🛂"
-        },
-        {
-            "id": "2",
-            "title": "Nepal-China border area observation",
-            "district": "Rasuwa",
-            "location": "Rasuwagadhi border area",
-            "latitude": 28.279742,
-            "longitude": 85.377997,
-            "type": "Flood",
-            "status": "Verified",
-            "date": "2026-09-01",
-            "time": "10:30 AM",
-            "source": "Video footage from border area",
-            "description": "Multiple footage clips documenting the same area and river flow movement.",
-            "footage": [
-                "video/NC.mp4",
-                "video/NC.mp4"
-            ],
-            "icon": "🛂"
-        },
-        {
-            "id": "2",
-            "title": "Nepal-China border area observation",
-            "district": "Rasuwa",
-            "location": "Rasuwagadhi border area",
-            "latitude": 28.279742,
-            "longitude": 85.377997,
-            "type": "Flood",
-            "status": "Verified",
-            "date": "2026-09-01",
-            "time": "10:30 AM",
-            "source": "Video footage from border area",
-            "description": "Multiple footage clips documenting the same area and river flow movement.",
-            "footage": [
-                "video/NC.mp4",
-                "video/NC.mp4"
-            ],
-            "icon": "🛂"
-        },
-        {
-            "id": "2",
-            "title": "Nepal-China border area observation",
-            "district": "Rasuwa",
-            "location": "Rasuwagadhi border area",
-            "latitude": 28.279742,
-            "longitude": 85.377997,
-            "type": "Flood",
-            "status": "Verified",
-            "date": "2026-09-01",
-            "time": "10:30 AM",
+            "time": "7:30 AM",
             "source": "Video footage from border area",
             "description": "Multiple footage clips documenting the same area and river flow movement.",
             "footage": [

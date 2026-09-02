@@ -53,10 +53,6 @@ const translations = {
         filterBridge: "🌉 Bridge",
         filterCustoms: "🛂 Customs",
         filterOther: "📍 Other",
-        filterAllVerification: "All verification",
-        filterVerified: "🟢 Verified",
-        filterReported: "🟡 Reported",
-        filterUnverified: "⚪ Unverified",
         sectionObservations: "OBSERVATIONS",
         recentWitnessTitle: "Recent witness reports",
         noResultsTitle: "No observations found",
@@ -126,7 +122,6 @@ const translations = {
         filterBridge: "🌉 桥梁",
         filterCustoms: "🛂 海关",
         filterOther: "📍 其他",
-        filterAllVerification: "全部核实状态",
         filterVerified: "🟢 已核实",
         filterReported: "🟡 已上报",
         filterUnverified: "⚪ 未核实",
@@ -199,7 +194,6 @@ const translations = {
         filterBridge: "🌉 पुल",
         filterCustoms: "🛂 Customs",
         filterOther: "📍 अन्य",
-        filterAllVerification: "सबै प्रमाणीकरण",
         filterVerified: "🟢 प्रमाणित",
         filterReported: "🟡 रिपोर्ट गरियो",
         filterUnverified: "⚪ अप्रमाणित",
@@ -335,6 +329,91 @@ function normalizeFootage(footage) {
     }
 
     return [];
+
+}
+
+
+function parseIncidentDateTime(incident) {
+
+    const date = String(incident?.date || "").trim();
+    const time = String(incident?.time || "").trim();
+
+    if (!date) {
+        return null;
+    }
+
+    if (!time) {
+        const parsed = new Date(date);
+        return Number.isNaN(parsed.getTime()) ? null : parsed;
+    }
+
+    const match = time.match(/(\d{1,2}):(\d{2})\s*([AP]M)/i);
+
+    if (match) {
+
+        let [, hourRaw, minuteRaw, meridian] = match;
+        let hour = Number(hourRaw);
+        const minute = Number(minuteRaw);
+
+        if (meridian.toUpperCase() === "PM" && hour < 12) {
+            hour += 12;
+        }
+
+        if (meridian.toUpperCase() === "AM" && hour === 12) {
+            hour = 0;
+        }
+
+        return new Date(
+            Number(date.slice(0, 4)),
+            Number(date.slice(5, 7)) - 1,
+            Number(date.slice(8, 10)),
+            hour,
+            minute
+        );
+
+    }
+
+    const parsed = new Date(`${date} ${time}`);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+
+}
+
+
+function generateIncidentKey(incident) {
+
+    const id = String(incident?.id ?? "").trim();
+    const date = String(incident?.date ?? "").trim();
+    const time = String(incident?.time ?? "").trim();
+
+    return `${id}|${date}|${time}`;
+
+}
+
+
+function getVisibleIncidents(items = []) {
+
+    const unique = new Map();
+
+    (Array.isArray(items) ? items : []).forEach(incident => {
+
+        const key = generateIncidentKey(incident);
+
+        if (!key || unique.has(key)) {
+            return;
+        }
+
+        unique.set(key, incident);
+
+    });
+
+    return Array.from(unique.values()).sort((a, b) => {
+
+        const aDateTime = parseIncidentDateTime(a)?.getTime?.() ?? 0;
+        const bDateTime = parseIncidentDateTime(b)?.getTime?.() ?? 0;
+
+        return aDateTime - bDateTime;
+
+    });
 
 }
 
@@ -647,13 +726,13 @@ async function loadData() {
 
 
         incidents =
-            Array.isArray(
-                data.incidents
-            )
-            ?
-            data.incidents
-            :
-            [];
+            getVisibleIncidents(
+                Array.isArray(
+                    data.incidents
+                )
+                    ? data.incidents
+                    : []
+            );
 
 
 configureGoogleFormLink();
@@ -738,6 +817,7 @@ configureGoogleFormLink();
 
 function updateDashboard() {
 
+    const visibleIncidents = getVisibleIncidents(incidents);
 
     const total =
         document.getElementById(
@@ -765,12 +845,12 @@ function updateDashboard() {
 
     if (total)
         total.textContent =
-            incidents.length;
+            visibleIncidents.length;
 
 
     if (footage)
         footage.textContent =
-            incidents.reduce(
+            visibleIncidents.reduce(
 
                 (total, item) =>
                     total +
@@ -785,7 +865,7 @@ function updateDashboard() {
 
     if (floods)
         floods.textContent =
-            incidents.filter(
+            visibleIncidents.filter(
 
                 item =>
                     item.type === "Flood"
@@ -795,7 +875,7 @@ function updateDashboard() {
 
     if (landslides)
         landslides.textContent =
-            incidents.filter(
+            visibleIncidents.filter(
 
                 item =>
                     item.type === "Landslide"
@@ -813,13 +893,14 @@ function renderMap(
     filtered = incidents
 ) {
 
+    const visibleFiltered = getVisibleIncidents(filtered);
 
     markerLayer.clearLayers();
 
     markers = [];
 
 
-    filtered.forEach(
+    visibleFiltered.forEach(
 
         incident => {
 
@@ -1000,6 +1081,7 @@ function renderCards(
     filtered = incidents
 ) {
 
+    const visibleFiltered = getVisibleIncidents(filtered);
 
     const grid =
         document.getElementById(
@@ -1020,7 +1102,7 @@ function renderCards(
     grid.innerHTML = "";
 
 
-    if (!filtered.length) {
+    if (!visibleFiltered.length) {
 
 
         if (noResults) {
@@ -1325,7 +1407,7 @@ function renderCards(
                         <span>
 
                             ${escapeHTML(
-                                incident.date
+                                incident.time + " || " + incident.date
                             )}
 
                         </span>
@@ -1559,6 +1641,7 @@ function renderTimeline(
     filtered = incidents
 ) {
 
+    const visibleFiltered = getVisibleIncidents(filtered);
 
     const timeline =
         document.getElementById(
@@ -1573,12 +1656,13 @@ function renderTimeline(
     timeline.innerHTML = "";
 
 
-    const limit = 6;
-    const visibleItems = filtered.slice(0, limit);
+    const visibleItems = visibleFiltered;
 
-    timeline.style.maxHeight = filtered.length > limit ? "430px" : "none";
-    timeline.style.overflowY = filtered.length > limit ? "auto" : "visible";
-    timeline.style.paddingRight = filtered.length > limit ? "8px" : "0";
+    const maxHeight = Math.min(visibleFiltered.length * 110, 520);
+
+    timeline.style.maxHeight = `${maxHeight}px`;
+    timeline.style.overflowY = "auto";
+    timeline.style.paddingRight = "8px";
 
     visibleItems.forEach(
 
@@ -1691,61 +1775,63 @@ function applyFilters() {
 
 
     const filtered =
-        incidents.filter(
+        getVisibleIncidents(
+            incidents.filter(
 
-            item => {
-
-
-                const searchableText = `
-
-                    ${item.title || ""}
-
-                    ${item.location || ""}
-
-                    ${item.district || ""}
-
-                    ${item.description || ""}
-
-                    ${item.source || ""}
-
-                `.toLowerCase();
+                item => {
 
 
-                const matchesSearch =
+                    const searchableText = `
 
-                    !search ||
+                        ${item.title || ""}
 
-                    searchableText.includes(
-                        search
+                        ${item.location || ""}
+
+                        ${item.district || ""}
+
+                        ${item.description || ""}
+
+                        ${item.source || ""}
+
+                    `.toLowerCase();
+
+
+                    const matchesSearch =
+
+                        !search ||
+
+                        searchableText.includes(
+                            search
+                        );
+
+
+                    const matchesType =
+
+                        type === "all" ||
+
+                        item.type === type;
+
+
+                    const matchesStatus =
+
+                        status === "all" ||
+
+                        item.status === status;
+
+
+                    return (
+
+                        matchesSearch &&
+
+                        matchesType &&
+
+                        matchesStatus
+
                     );
 
+                }
 
-                const matchesType =
-
-                    type === "all" ||
-
-                    item.type === type;
-
-
-                const matchesStatus =
-
-                    status === "all" ||
-
-                    item.status === status;
-
-
-                return (
-
-                    matchesSearch &&
-
-                    matchesType &&
-
-                    matchesStatus
-
-                );
-
-            }
-
+            )
         );
 
 
