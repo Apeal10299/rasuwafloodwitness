@@ -30,6 +30,29 @@ const markerColors = {
 };
 
 
+function normalizeFootage(footage) {
+
+    if (Array.isArray(footage)) {
+
+        return footage
+            .map(item => String(item).trim())
+            .filter(Boolean);
+
+    }
+
+    if (typeof footage === "string") {
+
+        const trimmed = footage.trim();
+
+        return trimmed ? [trimmed] : [];
+
+    }
+
+    return [];
+
+}
+
+
 /* =====================================================
    INITIALIZE MAP
 ===================================================== */
@@ -459,17 +482,17 @@ function updateDashboard() {
 
     if (footage)
         footage.textContent =
-            incidents.filter(
+            incidents.reduce(
 
-                item =>
-
-                    item.footage &&
-
-                    String(
+                (total, item) =>
+                    total +
+                    normalizeFootage(
                         item.footage
-                    ).trim() !== ""
+                    ).length,
 
-            ).length;
+                0
+
+            );
 
 
     if (floods)
@@ -655,6 +678,36 @@ function renderMap(
    RENDER CARDS
 ===================================================== */
 
+document.addEventListener(
+    "play",
+    event => {
+
+        if (
+            event.target &&
+            event.target.tagName &&
+            event.target.tagName.toLowerCase() === "video"
+        ) {
+
+            document.querySelectorAll("video").forEach(video => {
+
+                if (
+                    video !== event.target &&
+                    !video.paused
+                ) {
+
+                    video.pause();
+
+                }
+
+            });
+
+        }
+
+    },
+    true
+);
+
+
 function renderCards(
     filtered = incidents
 ) {
@@ -730,72 +783,144 @@ function renderCards(
 
             let mediaHTML = "";
 
-
-            if (
-
-                incident.footage &&
-
-                String(
+            const footageItems =
+                normalizeFootage(
                     incident.footage
-                ).trim() !== ""
-
-            ) {
+                );
 
 
-                const footage =
-                    String(
-                        incident.footage
-                    ).trim();
+            if (footageItems.length) {
 
+                const mediaMarkup =
+                    footageItems
+                        .map((footage, index) => {
 
-                if (
-                    isLocalVideo(
-                        footage
-                    )
-                ) {
+                            const slideContent =
+                                isLocalVideo(
+                                    footage
+                                )
+                                    ? `
 
+                                        <video
 
-                    mediaHTML = `
+                                            class="incident-video"
 
-                        <div class="incident-media">
+                                            controls
 
-                            <video
+                                            controlsList="nodownload noplaybackrate"
 
-                                class="incident-video"
+                                            disablePictureInPicture
 
-                                controls
+                                            playsinline
 
-                                controlsList="nodownload noplaybackrate"
+                                            preload="metadata"
 
-                                disablePictureInPicture
+                                            oncontextmenu="return false;"
 
-                                playsinline
+                                        >
 
-                                preload="metadata"
+                                            <source
 
-                                oncontextmenu="return false;"
+                                                src="${escapeHTML(
+                                                    footage
+                                                )}"
 
-                            >
+                                                type="video/mp4"
 
-                                <source
+                                            >
 
-                                    src="${escapeHTML(
-                                        footage
-                                    )}"
+                                            Your browser
+                                            cannot play this video.
 
-                                    type="video/mp4"
+                                        </video>
 
+                                    `
+                                    : `
+
+                                        <div class="incident-icon">
+
+                                            🎥
+
+                                        </div>
+
+                                    `;
+
+                            return `
+
+                                <div
+                                    class="media-slide ${index === 0 ? "active" : ""}"
+                                    data-index="${index}"
                                 >
 
-                                Your browser
-                                cannot play this video.
+                                    ${slideContent}
 
-                            </video>
+                                </div>
 
+                            `;
 
-                            <div
-                                class="video-protection-label"
+                        })
+                        .join("");
+
+                const arrowButtons =
+                    footageItems.length > 1
+                        ? `
+
+                            <button
+                                class="media-arrow media-arrow-left"
+                                type="button"
+                                aria-label="Previous footage"
                             >
+                                ‹
+                            </button>
+
+                            <button
+                                class="media-arrow media-arrow-right"
+                                type="button"
+                                aria-label="Next footage"
+                            >
+                                ›
+                            </button>
+
+                        `
+                        : "";
+
+                const dots =
+                    footageItems.length > 1
+                        ? `
+
+                            <div class="media-dots">
+
+                                ${footageItems
+                                    .map(
+                                        (_, index) =>
+                                            `<span class="media-dot ${index === 0 ? "active" : ""}" data-index="${index}"></span>`
+                                    )
+                                    .join("")}
+
+                            </div>
+
+                        `
+                        : "";
+
+                mediaHTML = `
+
+                    <div class="incident-media incident-media-preview" data-incident-id="${escapeHTML(
+                        incident.id
+                    )}">
+
+                        <div class="media-viewport">
+
+                            <div class="media-track">
+
+                                ${mediaMarkup}
+
+                            </div>
+
+                            ${arrowButtons}
+
+                            ${dots}
+
+                            <div class="video-protection-label">
 
                                 © Nepal Flood Witness Map
 
@@ -803,29 +928,9 @@ function renderCards(
 
                         </div>
 
-                    `;
+                    </div>
 
-                }
-
-
-                else {
-
-
-                    mediaHTML = `
-
-                        <div class="incident-media">
-
-                            <div class="incident-icon">
-
-                                🎥
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }
+                `;
 
             }
 
@@ -848,7 +953,6 @@ function renderCards(
                 `;
 
             }
-
 
 
             /* =================================================
@@ -991,6 +1095,132 @@ function renderCards(
                     }
 
                 );
+
+            }
+
+
+            const mediaPreview =
+                card.querySelector(
+                    ".incident-media-preview"
+                );
+
+
+            if (mediaPreview) {
+
+                const track =
+                    mediaPreview.querySelector(
+                        ".media-track"
+                    );
+
+                const slides =
+                    Array.from(
+                        mediaPreview.querySelectorAll(
+                            ".media-slide"
+                        )
+                    );
+
+                const dots =
+                    Array.from(
+                        mediaPreview.querySelectorAll(
+                            ".media-dot"
+                        )
+                    );
+
+                const leftButton =
+                    mediaPreview.querySelector(
+                        ".media-arrow-left"
+                    );
+
+                const rightButton =
+                    mediaPreview.querySelector(
+                        ".media-arrow-right"
+                    );
+
+                let currentIndex = 0;
+
+                const updatePreview = () => {
+
+                    if (!track || !slides.length)
+                        return;
+
+                    track.style.transform =
+                        `translateX(-${currentIndex * 100}%)`;
+
+                    slides.forEach((slide, index) => {
+
+                        slide.classList.toggle(
+                            "active",
+                            index === currentIndex
+                        );
+
+                    });
+
+                    dots.forEach((dot, index) => {
+
+                        dot.classList.toggle(
+                            "active",
+                            index === currentIndex
+                        );
+
+                    });
+
+                };
+
+                if (leftButton) {
+
+                    leftButton.addEventListener(
+                        "click",
+                        () => {
+
+                            currentIndex =
+                                currentIndex > 0
+                                    ? currentIndex - 1
+                                    : slides.length - 1;
+
+                            updatePreview();
+
+                        }
+                    );
+
+                }
+
+                if (rightButton) {
+
+                    rightButton.addEventListener(
+                        "click",
+                        () => {
+
+                            currentIndex =
+                                currentIndex < slides.length - 1
+                                    ? currentIndex + 1
+                                    : 0;
+
+                            updatePreview();
+
+                        }
+                    );
+
+                }
+
+                dots.forEach(dot => {
+
+                    dot.addEventListener(
+                        "click",
+                        () => {
+
+                            currentIndex =
+                                Number(
+                                    dot.dataset.index
+                                );
+
+                            updatePreview();
+
+                        }
+                    );
+
+                });
+
+                updatePreview();
 
             }
 
